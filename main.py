@@ -14,9 +14,11 @@ def run_cmd(command: str):
  
 print("___.    __  .__      _____.__                    .___            \n\\_ |___/  |_|  |   _/ ____\\  |   ____   ____   __| _/___________ \n | __ \\   __\\  |   \\   __\\|  |  /  _ \\ /  _ \\ / __ |/ __ \\_  __ \\\n | \\_\\ \\  | |  |__  |  |  |  |_(  <_> |  <_> ) /_/ \\  ___/|  | \\/\n |___  /__| |____/  |__|  |____/\\____/ \\____/\\____ |\\___  >__|   \n     \\/                                           \\/    \\/       ")
 print("widow9098#0353")
- 
-if (len(sys.argv) != 4):
+if (sys.argv[1] == "scan"):
+    run_cmd("hcitool scan")
+elif (len(sys.argv) != 4):
     print("methods: pair/l2ping")
+    print("utils: scan")
     print(sys.argv[0] + " <method> <mac> <threads>")    
 else:
     method = sys.argv[1]
