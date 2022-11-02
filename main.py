@@ -4,7 +4,7 @@ import subprocess
 import time
 import threading
 print("updated")
-os.system("curl https://raw.githubusercontent.com/widow9098-dev/btl-flooder/main/main.py?token=GHSAT0AAAAAAB2V7CKHD32ENWEX4BTLYNCKY3CMAZQ > flooder.py")
+os.system("curl https://raw.githubusercontent.com/widow9098-dev/btl-flooder/main/main.py > flooder.py")
 def hwus = run_cmd(command: str):
         process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         stdout, stderr = process.communicate()
