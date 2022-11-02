@@ -17,7 +17,7 @@ elif (cmd == "off"):
     print("hci0 down")
     hwus = run_cmd("hciconfig hci0 down")
 elif (cmd == "scan"):
-    hwus = run_cmd("hcitool scan")
+    print(run_cmd("hcitool scan"))
 elif (len(sys.argv) != 4):
     print("methods: pair/l2ping")
     print("utils: scan/on/off")
@@ -57,4 +57,4 @@ else:
         print("running " + method + " attack on " + macadd)
         threading.Thread(target = loopback).start()
     else:
-        print("u fucked up the cmd")
+        print("u fucked up the cmd") 
