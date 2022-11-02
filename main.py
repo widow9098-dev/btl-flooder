@@ -21,7 +21,7 @@ elif (cmd == "scan"):
 elif (len(sys.argv) != 4):
     print("methods: pair/l2ping")
     print("utils: scan/on/off")
-    print(sys.argv[0] + " <pair/l2ping> <mac> <threads(recomended:1000)>")
+    print(sys.argv[0] + " <pair/l2ping/rfcomm> <mac> <threads(recomended:1000)>")
     print(sys.argv[0] + " <scan/on/off>")    
 else:
     method = sys.argv[1]
