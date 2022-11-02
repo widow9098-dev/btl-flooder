@@ -1,3 +1,5 @@
+rfcomm connect $target_addr 1 2>&1 >/dev/null
+
 import os
 import sys
 import subprocess
