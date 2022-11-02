@@ -28,7 +28,7 @@ elif (len(sys.argv) != 4):
 else:
     method = sys.argv[1]
     macadd = sys.argv[2]
-    threadnum = sys.argv[3]
+    threadnum = int(sys.argv[3])
     if (method == "rfcomm"):
         def loopbacklrfcomm():
             while True: 
