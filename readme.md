@@ -10,4 +10,4 @@ on - turn on bluetooth<br>
 off - turn off bluetooth<br>
 scan - scan for devices<br>
 
-install: curl https://raw.githubusercontent.com/widow9098-dev/btl-flooder/main/main.py > flooder.py
+install: wget https://raw.githubusercontent.com/widow9098-dev/btl-flooder/main/main.py > flooder.py
