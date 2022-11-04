@@ -61,6 +61,7 @@ else:
                 run_cmd("bluetoothctl default-agent") 
                 run_cmd("timeout 1s bluetoothctl scan on")  
                 run_cmd("timeout 2s bluetoothctl pair " + macadd) 
+                packetsent += 1
                 os.system("clear")
                 print("sent pair packet to " + macadd)
                 print("sent " + str(packetsent) + " packets")
